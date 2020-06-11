@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import Layout from "../components/Layout";
 import { withRouter } from 'react-router-dom'
 
