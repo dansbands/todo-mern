@@ -1,9 +1,30 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
+import {
+  TodoContainer,
+  TodoCard,
+  TodoTitle,
+  Check,
+  DeleteContainer,
+  Delete,
+} from "../styles";
 
-const TodoItem = (props) => {
+const TodoItem = ({ _id, title, completed, deleteTodo, completeTodo, isEditing }) => {
   return (
-    <div />
+    <TodoContainer>
+      <DeleteContainer
+        display={isEditing ? "true" : null}
+        onClick={() => deleteTodo(_id)}
+      >
+        <Delete />
+      </DeleteContainer>
+      <TodoCard>
+        <TodoTitle>{title}</TodoTitle>{" "}
+        <span onClick={() => completeTodo(_id, !completed)}>
+          <Check completed={completed ? "true" : null} />
+        </span>
+      </TodoCard>
+    </TodoContainer>
   )
 }
 

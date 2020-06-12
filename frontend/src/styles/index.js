@@ -39,7 +39,7 @@ export const TodoTitle = styled.p`
 
 export const Check = styled(CheckboxMarkedCircleOutlineIcon)`
   float: right;
-  color: ${(props) => (props.completed ? "green" : "grey")};
+  color: ${(props) => (props.completed ? "green" : "lightgrey")};
   margin-left: 10px;
   &:hover {
     cursor: pointer;

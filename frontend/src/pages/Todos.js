@@ -2,18 +2,11 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 // import PropTypes from "prop-types";
 import Layout from "../components/Layout";
-import TodoHeader from "../components/TodoHeader";
 import TodoForm from "../components/TodoForm";
+import TodoHeader from "../components/TodoHeader";
+import TodoItem from "../components/TodoItem";
 import apiFetch from "../utils/apiFetch";
-import {
-  TodoList,
-  TodoContainer,
-  TodoCard,
-  TodoTitle,
-  Check,
-  DeleteContainer,
-  Delete,
-} from "../styles";
+import { TodoList } from "../styles";
 // import styled from "styled-components";
 
 const Todos = (props) => {
@@ -67,24 +60,17 @@ const Todos = (props) => {
     return todos
       .filter((todo) => todo.userId === 1)
       .map(({ _id, title, completed }) => (
-        <TodoContainer key={_id}>
-          <DeleteContainer
-            display={isEditing ? "true" : null}
-            onClick={() => deleteTodo(_id)}
-          >
-            <Delete />
-          </DeleteContainer>
-          <TodoCard>
-            <TodoTitle>{title}</TodoTitle>{" "}
-            <span onClick={() => completeTodo(_id, !completed)}>
-              <Check completed={completed ? "true" : null} />
-            </span>
-          </TodoCard>
-        </TodoContainer>
+        <TodoItem
+          key={_id}
+          _id={_id}
+          title={title}
+          completed={completed}
+          deleteTodo={deleteTodo}
+          completeTodo={completeTodo}
+          isEditing={isEditing}
+        />
       ));
   };
-
-  console.log({ todos });
 
   return (
     <>
