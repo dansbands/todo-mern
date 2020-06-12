@@ -46,6 +46,7 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
         .insertOne(req.body)
         .then((result) => {
           // console.log(result);
+          res.send(200)
         })
         .catch((error) => console.error(error));
     });

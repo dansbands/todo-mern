@@ -25,13 +25,14 @@ const Todos = (props) => {
   }, []);
 
   const getTodos = () => {
+    console.log('getTodos');
     return fetch("http://localhost:3001/todos")
       .then((response) => response.json())
       .then((json) => setTodos(json));
   };
 
   const addTodo = (todo) => {
-    const data = { userId: 1, title: todo }
+    const data = { userId: 1, title: todo, completed: false }
     console.log("add todo", data);
     return (
       fetch("http://localhost:3001/todos", {
@@ -44,16 +45,17 @@ const Todos = (props) => {
         body: JSON.stringify(data),
       })
         .then((response) => (response.json()))
+        .catch(error => console.log(error))
         .then(() => getTodos())
-    );
-  };
-
-  const deleteTodo = (id) => {
-    console.log("delete todo", id);
+    )
   };
 
   const completeTodo = (id) => {
     console.log("complete todo", id);
+  };
+
+  const deleteTodo = (id) => {
+    console.log("delete todo", id);
   };
 
   const renderTodos = () => {
