@@ -97,7 +97,7 @@ const Todos = (props) => {
   const renderTodos = () => {
     return todos
       .filter((todo) => todo.userId === 1)
-      .map(({ _id, title }) => (
+      .map(({ _id, title, completed }) => (
         <TodoContainer key={_id}>
           <DeleteContainer
             display={isEditing ? "true" : null}
@@ -108,7 +108,7 @@ const Todos = (props) => {
           <TodoCard>
             <TodoTitle>{title}</TodoTitle>{" "}
             <span onClick={() => completeTodo(_id)}>
-              <Check />
+              <Check completed={completed ? "true" : null} />
             </span>
           </TodoCard>
         </TodoContainer>
