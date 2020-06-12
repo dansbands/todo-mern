@@ -15,9 +15,11 @@ import {
 } from "../styles";
 // import styled from "styled-components";
 
+const BASE_URL = "http://localhost:3001"
+
 const Todos = (props) => {
   const [todos, setTodos] = useState([]);
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setEditing] = useState(true);
   const [isAdding, setAdding] = useState(true);
 
   useEffect(() => {
@@ -45,17 +47,51 @@ const Todos = (props) => {
         body: JSON.stringify(data),
       })
         .then((response) => (response.json()))
-        .catch(error => console.log(error))
+        .catch(error => console.log('ERROR!!!', error))
         .then(() => getTodos())
     )
   };
 
   const completeTodo = (id) => {
     console.log("complete todo", id);
+    return fetch(`${BASE_URL}/todo/${id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ completed: true })
+    })
+    .then(res => {
+      if (res.ok) return res.json()
+    })
+    .catch(error => console.log('ERROR!!!', error))
+    .then(json => {
+      console.log(json);
+    })
+    .then(() => getTodos());
   };
 
   const deleteTodo = (id) => {
     console.log("delete todo", id);
+    return fetch(`${BASE_URL}/todo/${id}`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({id})
+    })
+    .then(res => {
+      if (res.ok) return res.json()
+    })
+    .catch(error => console.log('ERROR!!!', error))
+    .then(json => {
+      console.log(json);
+    })
+    .then(() => getTodos());
   };
 
   const renderTodos = () => {

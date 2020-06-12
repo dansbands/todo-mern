@@ -6,6 +6,8 @@ const app = express();
 require("dotenv").config({ path: "variables.env" });
 // const db = require('db')
 
+const { ObjectId } = require("mongodb");
+
 const MongoClient = require("mongodb").MongoClient;
 MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
   .then((client) => {
@@ -45,10 +47,42 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
       todoCollection
         .insertOne(req.body)
         .then((result) => {
-          // console.log(result);
-          res.send(200)
+          res.send(200);
         })
         .catch((error) => console.error(error));
     });
+
+    app.put("/todo/:id", (req, res) => {
+      console.log("PUT!!!", req.params.id);
+      console.log("BODY!!!", req.body);
+      todoCollection
+        .findOneAndUpdate(
+          { _id: ObjectId(req.params.id) },
+          {
+            $set: {
+              completed: req.body.completed,
+            },
+          }
+        )
+        .then((result) => {
+          console.log("result", result);
+          res.json(`Updated ${req.params.id}`);
+        })
+        .catch((error) => console.log("Error", error));
+    });
+
+    app.delete("/todo/:id", (req, res) => {
+      console.log("DELETE!!!", req.params.id);
+      console.log("BODY!!!", ObjectId(req.params.id));
+      todoCollection
+        .deleteOne(
+          { _id: ObjectId(req.params.id) }
+        )
+        .then((result) => {
+          res.json(`Deleted ${req.params.id}`);
+        })
+        .catch((error) => console.log("Error", error));
+    });
   })
-  .catch((error) => console.log(error));
+
+  .catch((error) => console.log("ERROR!!!", error));
