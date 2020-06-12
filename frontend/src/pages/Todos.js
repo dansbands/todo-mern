@@ -59,17 +59,17 @@ const Todos = (props) => {
   const renderTodos = () => {
     return todos
       .filter((todo) => todo.userId === 1)
-      .map(({ id, title }) => (
-        <TodoContainer key={id}>
+      .map(({ _id, title }) => (
+        <TodoContainer key={_id}>
           <DeleteContainer
             display={isEditing ? "true" : null}
-            onClick={() => deleteTodo(id)}
+            onClick={() => deleteTodo(_id)}
           >
             <Delete />
           </DeleteContainer>
           <TodoCard>
             <TodoTitle>{title}</TodoTitle>{" "}
-            <span onClick={() => completeTodo(id)}>
+            <span onClick={() => completeTodo(_id)}>
               <Check />
             </span>
           </TodoCard>
