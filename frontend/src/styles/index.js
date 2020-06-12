@@ -51,6 +51,9 @@ export const DeleteContainer = styled(DeleteForeverOutlineIcon)`
   float: left;
   color: ${(props) => (props.display ? "red" : "white")};
   display: ${(props) => (props.display ? "block" : "none")};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Delete = styled(DeleteForeverOutlineIcon)`

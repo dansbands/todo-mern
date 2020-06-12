@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 // import PropTypes from "prop-types";
 import Layout from "../components/Layout";
 import TodoHeader from "../components/TodoHeader";
 import TodoForm from "../components/TodoForm";
-import { withRouter } from "react-router-dom";
+import apiFetch from "../utils/apiFetch";
 import {
   TodoList,
   TodoContainer,
@@ -15,8 +16,6 @@ import {
 } from "../styles";
 // import styled from "styled-components";
 
-const BASE_URL = "http://localhost:3001"
-
 const Todos = (props) => {
   const [todos, setTodos] = useState([]);
   const [isEditing, setEditing] = useState(true);
@@ -27,71 +26,41 @@ const Todos = (props) => {
   }, []);
 
   const getTodos = () => {
-    console.log('getTodos');
-    return fetch("http://localhost:3001/todos")
-      .then((response) => response.json())
-      .then((json) => setTodos(json));
+    return apiFetch("todos").then((json) => setTodos(json));
   };
 
   const addTodo = (todo) => {
-    const data = { userId: 1, title: todo, completed: false }
-    console.log("add todo", data);
-    return (
-      fetch("http://localhost:3001/todos", {
-        method: "POST",
-        mode: 'cors',
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => (response.json()))
-        .catch(error => console.log('ERROR!!!', error))
-        .then(() => getTodos())
-    )
+    const data = { userId: 1, title: todo, completed: false };
+    const options = {
+      method: "POST",
+      body: data,
+    };
+    return apiFetch("todos", options)
+      .catch((error) => console.log("ERROR!!!", error))
+      .then(() => getTodos());
   };
 
-  const completeTodo = (id) => {
-    console.log("complete todo", id);
-    return fetch(`${BASE_URL}/todo/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ completed: true })
-    })
-    .then(res => {
-      if (res.ok) return res.json()
-    })
-    .catch(error => console.log('ERROR!!!', error))
-    .then(json => {
-      console.log(json);
-    })
-    .then(() => getTodos());
+  const completeTodo = (id, completed) => {
+    const options = {
+      method: "PUT",
+      body: { completed },
+    };
+    return apiFetch(`todo/${id}`, options)
+      .catch((error) => console.log("ERROR!!!", error))
+      .then((json) => console.log("complete", json))
+      .then(() => getTodos());
   };
 
   const deleteTodo = (id) => {
     console.log("delete todo", id);
-    return fetch(`${BASE_URL}/todo/${id}`, {
-      method: 'DELETE',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({id})
-    })
-    .then(res => {
-      if (res.ok) return res.json()
-    })
-    .catch(error => console.log('ERROR!!!', error))
-    .then(json => {
-      console.log(json);
-    })
-    .then(() => getTodos());
+    const options = {
+      method: "DELETE",
+      body: { id },
+    };
+    return apiFetch(`todo/${id}`, options)
+      .catch((error) => console.log("ERROR!!!", error))
+      .then((json) => console.log("Deleted", json))
+      .then(() => getTodos());
   };
 
   const renderTodos = () => {
@@ -107,7 +76,7 @@ const Todos = (props) => {
           </DeleteContainer>
           <TodoCard>
             <TodoTitle>{title}</TodoTitle>{" "}
-            <span onClick={() => completeTodo(_id)}>
+            <span onClick={() => completeTodo(_id, !completed)}>
               <Check completed={completed ? "true" : null} />
             </span>
           </TodoCard>
