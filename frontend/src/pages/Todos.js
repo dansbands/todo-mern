@@ -32,6 +32,15 @@ const Todos = (props) => {
 
   const addTodo = todo => {
     console.log('add todo', todo);
+    return fetch("https://jsonplaceholder.typicode.com/todos/", {
+      method: 'POST',
+      body: {
+        todo
+      }
+    })
+      .then((response) => (response.json()))
+      .then(json => console.log(json))
+      .then(() => getTodos());
   }
 
   const deleteTodo = (id) => {
@@ -60,6 +69,8 @@ const Todos = (props) => {
       ));
   };
 
+  console.log({todos});
+
   return (
     <>
       <Layout title="Todos">
@@ -71,7 +82,7 @@ const Todos = (props) => {
             setAdding={setAdding}
           />
         {isAdding && <TodoForm addTodo={addTodo} />}
-          {renderTodos()}
+          {todos && renderTodos()}
         </TodoList>
       </Layout>
     </>
