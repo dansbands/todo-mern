@@ -25,7 +25,7 @@ export const TodoCard = styled.div`
   border: 1px solid lightgrey;
   border-radius: 5px;
   margin: 2px 0;
-  /* margin-left: ${props => props.editing ? "40px" : 0}; */
+  /* margin-left: ${(props) => (props.editing ? "40px" : 0)}; */
   transition: margin-left .5s;
 `;
 
@@ -41,17 +41,23 @@ export const Check = styled(CheckboxMarkedCircleOutlineIcon)`
   float: right;
   color: green;
   margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const DeleteContainer = styled(DeleteForeverOutlineIcon)`
   margin-left: -30px;
   float: left;
-  color: ${props => props.display ? "red" : "white"};
-  display: ${props => props.display ? "block" : "none"}
+  color: ${(props) => (props.display ? "red" : "white")};
+  display: ${(props) => (props.display ? "block" : "none")};
 `;
 
 export const Delete = styled(DeleteForeverOutlineIcon)`
   float: left;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const StyledHeader = styled.div`
@@ -62,11 +68,11 @@ export const StyledHeader = styled.div`
 
 export const theme = {
   active: "blue",
-  inactive: "lightgrey"
-}
+  inactive: "lightgrey",
+};
 
 export const StyledPencil = styled(PencilIcon)`
-  color: ${(props) => (props.theme.active)};
+  color: ${(props) => props.theme.active};
   &:hover {
     cursor: pointer;
   }
@@ -76,5 +82,25 @@ export const StyledPlusCircle = styled(PlusCircleOutlineIcon)`
   color: ${(isAdding) => (isAdding ? "blue" : "grey")};
   &:hover {
     cursor: pointer;
+  }
+`;
+
+export const StyledForm = styled.form`
+  input {
+    width: 80%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    margin: 0;
+  }
+  button {
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
 `;

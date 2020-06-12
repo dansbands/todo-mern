@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import PropTypes from "prop-types";
 import Layout from "../components/Layout";
 import TodoHeader from "../components/TodoHeader";
+import TodoForm from "../components/TodoForm";
 import { withRouter } from "react-router-dom";
 import {
   TodoList,
@@ -17,7 +18,7 @@ import {
 const Todos = (props) => {
   const [todos, setTodos] = useState([]);
   const [isEditing, setEditing] = useState(false);
-  const [isAdding, setAdding] = useState(false);
+  const [isAdding, setAdding] = useState(true);
 
   useEffect(() => {
     getTodos();
@@ -28,6 +29,10 @@ const Todos = (props) => {
       .then((response) => response.json())
       .then((json) => setTodos(json));
   };
+
+  const addTodo = todo => {
+    console.log('add todo', todo);
+  }
 
   const deleteTodo = (id) => {
     console.log("delete todo", id);
@@ -65,6 +70,7 @@ const Todos = (props) => {
             setEditing={setEditing}
             setAdding={setAdding}
           />
+        {isAdding && <TodoForm addTodo={addTodo} />}
           {renderTodos()}
         </TodoList>
       </Layout>
