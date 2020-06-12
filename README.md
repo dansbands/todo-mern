@@ -22,5 +22,6 @@ I created this project to show a concise example of my proficiency in a number o
 - Redux Saga
 - Responsive Design
 - Auth/ SignIn & SignUp views & routes
-- Detailed View and Editing of Todos 
+- Detailed View and Editing of Todos
 - Ability to toggle view between Current, Completed, and All Todos
+- Ability to change order of Todos 

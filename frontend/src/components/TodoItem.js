@@ -6,7 +6,7 @@ import {
   TodoTitle,
   Check,
   DeleteContainer,
-  Delete,
+  DeleteIcon,
 } from "../styles";
 
 const TodoItem = ({ _id, title, completed, deleteTodo, completeTodo, isEditing }) => {
@@ -16,7 +16,7 @@ const TodoItem = ({ _id, title, completed, deleteTodo, completeTodo, isEditing }
         display={isEditing ? "true" : null}
         onClick={() => deleteTodo(_id)}
       >
-        <Delete />
+        <DeleteIcon />
       </DeleteContainer>
       <TodoCard>
         <TodoTitle>{title}</TodoTitle>{" "}

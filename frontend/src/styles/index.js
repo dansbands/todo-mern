@@ -56,7 +56,7 @@ export const DeleteContainer = styled(DeleteForeverOutlineIcon)`
   }
 `;
 
-export const Delete = styled(DeleteForeverOutlineIcon)`
+export const DeleteIcon = styled(DeleteForeverOutlineIcon)`
   float: left;
   &:hover {
     cursor: pointer;
