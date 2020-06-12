@@ -25,23 +25,28 @@ const Todos = (props) => {
   }, []);
 
   const getTodos = () => {
-    return fetch("https://jsonplaceholder.typicode.com/todos/")
+    return fetch("http://localhost:3001/todos")
       .then((response) => response.json())
       .then((json) => setTodos(json));
   };
 
-  const addTodo = todo => {
-    console.log('add todo', todo);
-    return fetch("https://jsonplaceholder.typicode.com/todos/", {
-      method: 'POST',
-      body: {
-        todo
-      }
-    })
-      .then((response) => (response.json()))
-      .then(json => console.log(json))
-      .then(() => getTodos());
-  }
+  const addTodo = (todo) => {
+    const data = { userId: 1, title: todo }
+    console.log("add todo", data);
+    return (
+      fetch("http://localhost:3001/todos", {
+        method: "POST",
+        mode: 'cors',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => (response.json()))
+        .then(() => getTodos())
+    );
+  };
 
   const deleteTodo = (id) => {
     console.log("delete todo", id);
@@ -56,7 +61,10 @@ const Todos = (props) => {
       .filter((todo) => todo.userId === 1)
       .map(({ id, title }) => (
         <TodoContainer key={id}>
-          <DeleteContainer display={isEditing ? "true" : null} onClick={() => deleteTodo(id)}>
+          <DeleteContainer
+            display={isEditing ? "true" : null}
+            onClick={() => deleteTodo(id)}
+          >
             <Delete />
           </DeleteContainer>
           <TodoCard>
@@ -69,7 +77,7 @@ const Todos = (props) => {
       ));
   };
 
-  console.log({todos});
+  console.log({ todos });
 
   return (
     <>
@@ -81,7 +89,7 @@ const Todos = (props) => {
             setEditing={setEditing}
             setAdding={setAdding}
           />
-        {isAdding && <TodoForm addTodo={addTodo} />}
+          {isAdding && <TodoForm addTodo={addTodo} />}
           {todos && renderTodos()}
         </TodoList>
       </Layout>
