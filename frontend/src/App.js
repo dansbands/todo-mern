@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import Home from "./pages/Home.js";
 import Todos from "./pages/Todos.js";
 import Todo from "./pages/Todo.js";
 
 function App() {
   return (
-    <>
+    <HelmetProvider>
       <Router>
         <div className="App">
           <Switch>
@@ -16,7 +17,7 @@ function App() {
           </Switch>
         </div>
       </Router>
-    </>
+    </HelmetProvider>
   );
 }
 

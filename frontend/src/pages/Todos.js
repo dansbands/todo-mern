@@ -45,7 +45,6 @@ const Todos = (props) => {
   };
 
   const deleteTodo = (id) => {
-    console.log("delete todo", id);
     const options = {
       method: "DELETE",
       body: { id },

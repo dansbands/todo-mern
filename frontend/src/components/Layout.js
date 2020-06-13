@@ -1,6 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import Header from "./Header";
 import Content from "./Content";
 import { withRouter } from 'react-router-dom'
