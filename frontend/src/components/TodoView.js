@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import apiFetch from "../utils/apiFetch";
+import { Redirect } from 'react-router-dom'
 // import PropTypes from "prop-types";
 
 const TodoView = (props) => {
   const [todo, setTodo]= useState('');
   const [title, updateTitle] = useState("");
   const [description, updateDescription] = useState("");
-
-  const getTodo = () => {
-    return apiFetch(`todo/${props.id}`).then((json) => {
-      setTodo(json)
-      if (json.title) updateTitle(json.title)
-      if (json.description) updateDescription(json.description)
-    });
-  };
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    getTodo(props._id);
-  }, []);
+    const getTodo = async () => {
+      const result = await apiFetch(`todo/${props.id}`)
+      setTodo(result)
+      if (result.title) updateTitle(result.title)
+      if (result.description) updateDescription(result.description)
+    };
+    getTodo();
+  }, [props.id]);
 
   const editTodo = (e) => {
     e.preventDefault()
@@ -29,6 +29,7 @@ const TodoView = (props) => {
     return apiFetch(`todo/${_id}/edit`, options)
       .catch((error) => console.log("ERROR!!!", error))
       .then((json) => console.log("update", json))
+      .then(() => setRedirect(true))
   };
 
   return (
@@ -49,6 +50,7 @@ const TodoView = (props) => {
         placeholder="Description..."
       /><br/>
       <button type="submit">Submit</button>
+      {redirect && <Redirect to="/todos" />}
     </form>
   );
 };

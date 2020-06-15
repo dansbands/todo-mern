@@ -54,7 +54,7 @@ export const TodoTitleContainer = styled.div`
 
 export const Check = styled(CheckboxMarkedCircleOutlineIcon)`
   position: relative;
-  right: 20px;
+  right: 15px;
   color: ${(props) => (props.completed ? "green" : "lightgrey")};
   &:hover {
     cursor: pointer;
@@ -87,8 +87,8 @@ export const StyledHeader = styled.div`
 `;
 
 export const theme = {
-  active: "blue",
-  inactive: "lightgrey",
+  active: "gray",
+  inactive: "lightgray",
 };
 
 export const StyledPencil = styled(PencilIcon)`
@@ -99,7 +99,7 @@ export const StyledPencil = styled(PencilIcon)`
 `;
 
 export const StyledPlusCircle = styled(PlusCircleOutlineIcon)`
-  color: ${(isAdding) => (isAdding ? "blue" : "grey")};
+  color: ${(isAdding) => (isAdding ? "grey" : "lightgrey")};
   &:hover {
     cursor: pointer;
   }

@@ -11,7 +11,7 @@ import { TodoList } from "../styles";
 
 const Todos = (props) => {
   const [todos, setTodos] = useState([]);
-  const [isEditing, setEditing] = useState(true);
+  const [isEditing, setEditing] = useState(false);
   const [isAdding, setAdding] = useState(true);
 
   useEffect(() => {
