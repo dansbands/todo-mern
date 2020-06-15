@@ -42,6 +42,19 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
         });
     });
 
+    app.get("/todo/:id", (req, res) => {
+      console.log("GET ONE!!!", req.params.id);
+      const id = req.params.id;
+      const cursor = db
+        .collection("todos")
+        .findOne({ _id: ObjectId(id) })
+        // .toArray()
+        .then((results) => {
+          console.log({results});
+          res.send(results);
+        });
+    });
+
     app.post("/todos", (req, res) => {
       console.log("body", req.body);
       todoCollection
@@ -60,7 +73,10 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
           { _id: ObjectId(req.params.id) },
           {
             $set: {
+              userId: req.body.userId,
+              title: req.body.title,
               completed: req.body.completed,
+              description: req.body.description,
             },
           }
         )

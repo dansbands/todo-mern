@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 // import PropTypes from "prop-types";
 import Layout from "../components/Layout";
-import TodoForm from "../components/TodoForm";
-import TodoHeader from "../components/TodoHeader";
-import TodoItem from "../components/TodoItem";
+import TodosForm from "../components/TodosForm";
+import TodosHeader from "../components/TodosHeader";
+import TodosItem from "../components/TodosItem";
 import apiFetch from "../utils/apiFetch";
 import { TodoList } from "../styles";
 // import styled from "styled-components";
@@ -23,24 +23,13 @@ const Todos = (props) => {
   };
 
   const addTodo = (todo) => {
-    const data = { userId: 1, title: todo, completed: false };
+    const data = { userId: 1, title: todo, completed: false, description: '' };
     const options = {
       method: "POST",
       body: data,
     };
     return apiFetch("todos", options)
       .catch((error) => console.log("ERROR!!!", error))
-      .then(() => getTodos());
-  };
-
-  const editTodo = (id, data) => {
-    const options = {
-      method: "PUT",
-      body: { data },
-    };
-    return apiFetch(`todo/${id}/edit`, options)
-      .catch((error) => console.log("ERROR!!!", error))
-      .then((json) => console.log("complete", json))
       .then(() => getTodos());
   };
 
@@ -69,12 +58,13 @@ const Todos = (props) => {
   const renderTodos = () => {
     return todos
       .filter((todo) => todo.userId === 1)
-      .map(({ _id, title, completed }) => (
-        <TodoItem
+      .map(({ _id, title, completed, description }) => (
+        <TodosItem
           key={_id}
           _id={_id}
           title={title}
           completed={completed}
+          description={description ? description : null}
           deleteTodo={deleteTodo}
           completeTodo={completeTodo}
           isEditing={isEditing}
@@ -86,13 +76,13 @@ const Todos = (props) => {
     <>
       <Layout title="Todos">
         <TodoList>
-          <TodoHeader
+          <TodosHeader
             isEditing={isEditing}
             isAdding={isAdding}
             setEditing={setEditing}
             setAdding={setAdding}
           />
-          {isAdding && <TodoForm addTodo={addTodo} />}
+          {isAdding && <TodosForm addTodo={addTodo} />}
           {todos && renderTodos()}
         </TodoList>
       </Layout>

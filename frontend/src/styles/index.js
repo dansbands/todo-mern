@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import CheckboxMarkedCircleOutlineIcon from "mdi-react/CheckboxMarkedCircleOutlineIcon";
 import DeleteForeverOutlineIcon from "mdi-react/DeleteForeverOutlineIcon";
+import TextBoxOutlineIcon from "mdi-react/TextBoxOutlineIcon";
 
 import PencilIcon from "mdi-react/PencilIcon";
 import PlusCircleOutlineIcon from "mdi-react/PlusCircleOutlineIcon";
@@ -12,21 +13,28 @@ export const StyledLink = styled(Link)`
 `;
 
 export const TodoList = styled.div`
-  margin: 0 10%;
+  ${'' /* border: 1px solid red; */}
+  margin: 0 10vw;
 `;
 
 export const TodoContainer = styled.div`
-  display: inline;
+  display: flex;
+  align-items: center;
 `;
 
 export const TodoCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   text-align: left;
   padding: 10px;
   border: 1px solid lightgrey;
   border-radius: 5px;
   margin: 2px 0;
-  /* margin-left: ${(props) => (props.editing ? "40px" : 0)}; */
-  transition: margin-left .5s;
+  margin-left: ${(props) => (props.isEditing ? "60px" : 0)};
+  transition: margin-left 1s;
+  width: 100%;
+  background: white;
 `;
 
 export const TodoTitle = styled.p`
@@ -37,17 +45,26 @@ export const TodoTitle = styled.p`
   text-overflow: ellipsis;
 `;
 
+export const TodoTitleContainer = styled.div`
+  min-width: 300px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 export const Check = styled(CheckboxMarkedCircleOutlineIcon)`
-  float: right;
+  position: relative;
+  right: 20px;
   color: ${(props) => (props.completed ? "green" : "lightgrey")};
-  margin-left: 10px;
   &:hover {
     cursor: pointer;
   }
 `;
 
 export const DeleteContainer = styled(DeleteForeverOutlineIcon)`
+  margin-top: 15px;
   margin-left: -30px;
+  ${'' /* margin-right: ${props => props.display ? '20px' : 0}; */}
   float: left;
   color: ${(props) => (props.display ? "red" : "white")};
   display: ${(props) => (props.display ? "block" : "none")};
@@ -105,5 +122,10 @@ export const StyledForm = styled.form`
     margin: 0;
     margin-left: 10px;
     margin-bottom: 10px;
+    background: white;
   }
 `;
+
+export const TextIcon = styled(TextBoxOutlineIcon)`
+  color: lightgrey;
+`

@@ -23,7 +23,7 @@ const PlusCircleButton = (isAdding, setAdding) => {
   )
 }
 
-const TodoHeader = ({ isAdding, isEditing, setEditing, setAdding }) => {
+const TodosHeader = ({ isAdding, isEditing, setEditing, setAdding }) => {
   return (
     <StyledHeader>
       {PencilButton(isEditing, setEditing) }
@@ -33,4 +33,4 @@ const TodoHeader = ({ isAdding, isEditing, setEditing, setAdding }) => {
   );
 };
 
-export default TodoHeader;
+export default TodosHeader;

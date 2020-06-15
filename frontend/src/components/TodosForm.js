@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import styled from "styled-components";
 import { StyledForm } from "../styles";
 
-const TodoForm = ({addTodo}) => {
+const TodosForm = ({addTodo}) => {
   const [formValue, setFormValue] = useState("");
 
   const handleSubmit = e => {
@@ -20,4 +20,4 @@ const TodoForm = ({addTodo}) => {
   );
 };
 
-export default TodoForm;
+export default TodosForm;
