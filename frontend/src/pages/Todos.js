@@ -33,12 +33,23 @@ const Todos = (props) => {
       .then(() => getTodos());
   };
 
+  const editTodo = (id, data) => {
+    const options = {
+      method: "PUT",
+      body: { data },
+    };
+    return apiFetch(`todo/${id}/edit`, options)
+      .catch((error) => console.log("ERROR!!!", error))
+      .then((json) => console.log("complete", json))
+      .then(() => getTodos());
+  };
+
   const completeTodo = (id, completed) => {
     const options = {
       method: "PUT",
       body: { completed },
     };
-    return apiFetch(`todo/${id}`, options)
+    return apiFetch(`todo/${id}/complete`, options)
       .catch((error) => console.log("ERROR!!!", error))
       .then((json) => console.log("complete", json))
       .then(() => getTodos());

@@ -52,7 +52,26 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
         .catch((error) => console.error(error));
     });
 
-    app.put("/todo/:id", (req, res) => {
+    app.put("/todo/:id/edit", (req, res) => {
+      console.log("PUT!!!", req.params.id);
+      console.log("BODY!!!", req.body);
+      todoCollection
+        .findOneAndUpdate(
+          { _id: ObjectId(req.params.id) },
+          {
+            $set: {
+              completed: req.body.completed,
+            },
+          }
+        )
+        .then((result) => {
+          console.log("result", result);
+          res.json(`Updated ${req.params.id}`);
+        })
+        .catch((error) => console.log("Error", error));
+    });
+
+    app.put("/todo/:id/complete", (req, res) => {
       console.log("PUT!!!", req.params.id);
       console.log("BODY!!!", req.body);
       todoCollection
