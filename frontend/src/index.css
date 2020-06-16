@@ -18,11 +18,11 @@ code {
 }
 
 .editing {
-  color: lightblue;
+  color: dimgrey;
 }
 
 .not-editing {
-  color: grey;
+  color: darkgrey;
 }
 
 .clear-btn {

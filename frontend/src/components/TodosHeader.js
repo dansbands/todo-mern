@@ -5,30 +5,38 @@ import PencilIcon from "mdi-react/PencilIcon";
 import PlusCircleOutlineIcon from "mdi-react/PlusCircleOutlineIcon";
 import { StyledHeader } from "../styles";
 
-const PencilButton = (isEditing, setEditing) => {
-  let pencilClass = isEditing ? "editing" : "notEditing";
-  return (
-    <button type="button" className="clear-btn" onClick={() => setEditing(!isEditing)}>
-      <PencilIcon className={pencilClass} />
-    </button>
-  );
-};
-
-const PlusCircleButton = (isAdding, setAdding) => {
-  let circleClass = isAdding ? "editing" : "notEditing";
-  return (
-    <button type="button" className="clear-btn" onClick={() => setAdding(!isAdding)}>
-      <PlusCircleOutlineIcon className={circleClass} />
-    </button>
-  )
-}
-
 const TodosHeader = ({ isAdding, isEditing, setEditing, setAdding }) => {
+  const PencilButton = (isEditing, setEditing) => {
+    let pencilClass = isEditing ? "editing" : "not-editing";
+    return (
+      <button
+        type="button"
+        className="clear-btn"
+        onClick={() => setEditing(!isEditing)}
+      >
+        <PencilIcon className={pencilClass} />
+      </button>
+    );
+  };
+
+  const PlusCircleButton = (isAdding, setAdding) => {
+    let circleClass = isAdding ? "editing" : "not-editing";
+    return (
+      <button
+        type="button"
+        className="clear-btn"
+        onClick={() => setAdding(!isAdding)}
+      >
+        <PlusCircleOutlineIcon className={circleClass} />
+      </button>
+    );
+  };
+
   return (
     <StyledHeader>
-      {PencilButton(isEditing, setEditing) }
+      {PencilButton(isEditing, setEditing)}
       <h3>Todos</h3>
-    {PlusCircleButton(isAdding, setAdding)}
+      {PlusCircleButton(isAdding, setAdding)}
     </StyledHeader>
   );
 };
