@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Layout from "../components/Layout";
-
+import { SignInForm } from "../styles";
 // import PropTypes from 'prop-types'
 
 const SignUp = (props) => {
@@ -27,7 +27,7 @@ const SignUp = (props) => {
   return (
     <Layout title="Sign Up">
       <h3>Sign Up</h3>
-      <form onSubmit={submitUser}>
+      <SignInForm onSubmit={submitUser}>
         <label htmlFor="firstName">First Name:</label>
         <br />
         <input
@@ -86,8 +86,9 @@ const SignUp = (props) => {
 
         <button type="submit">Sign In</button>
         {redirect && <Redirect to="/todos" />}
-      </form>
-      <Link to="/signin">Already a member? Sign in instead.</Link>
+        <br/>
+        <Link to="/signin">Already a member? Sign in instead.</Link>
+      </SignInForm>
     </Layout>
   );
 };

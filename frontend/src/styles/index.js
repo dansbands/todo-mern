@@ -13,7 +13,7 @@ export const StyledLink = styled(Link)`
 `;
 
 export const TodoList = styled.div`
-  ${'' /* border: 1px solid red; */}
+  ${"" /* border: 1px solid red; */}
   margin: 0 10vw;
 `;
 
@@ -64,7 +64,7 @@ export const Check = styled(CheckboxMarkedCircleOutlineIcon)`
 export const DeleteContainer = styled(DeleteForeverOutlineIcon)`
   margin-top: 15px;
   margin-left: -30px;
-  ${'' /* margin-right: ${props => props.display ? '20px' : 0}; */}
+  ${"" /* margin-right: ${props => props.display ? '20px' : 0}; */}
   float: left;
   color: ${(props) => (props.display ? "red" : "white")};
   display: ${(props) => (props.display ? "block" : "none")};
@@ -106,6 +106,9 @@ export const StyledPlusCircle = styled(PlusCircleOutlineIcon)`
 `;
 
 export const StyledForm = styled.form`
+  label {
+    text-align: left;
+  }
   input {
     width: 80%;
     height: 30px;
@@ -126,6 +129,30 @@ export const StyledForm = styled.form`
   }
 `;
 
+export const SignInForm = styled.form`
+  text-align: left;
+  margin-left: 25%;
+  width: 50%;
+  margin-bottom: 200px;
+
+  input {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    margin: 0;
+    margin: 10px 0 20px;
+  }
+  button {
+    width: 30%;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    margin: 10px 0 40px;
+    background: white;
+  }
+`;
+
 export const TextIcon = styled(TextBoxOutlineIcon)`
   color: lightgrey;
-`
+`;
