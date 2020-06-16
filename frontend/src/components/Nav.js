@@ -3,10 +3,24 @@ import React from "react";
 import { StyledLink } from "../styles";
 
 const Nav = (props) => {
+  const handleClick = () => {
+    console.log("Click!");
+    localStorage.removeItem('token')
+    console.log(localStorage);
+  };
+
   return (
     <nav>
-      <StyledLink to="/">Home</StyledLink>
-      <StyledLink to="/todos">Todos</StyledLink>
+      {localStorage.token ? (
+        <>
+          <StyledLink onClick={handleClick} to="/">
+            Sign Out
+          </StyledLink>
+          <StyledLink to="/todos">Todos</StyledLink>
+        </>
+      ) : (
+        <StyledLink to="/">Sign In</StyledLink>
+      )}
     </nav>
   );
 };
