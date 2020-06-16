@@ -4,8 +4,11 @@ import {
   Switch,
   Route,
   Redirect,
+  useHistory,
+  useLocation,
 } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import PrivateRoute from "./components/PrivateRoute.js";
 import SignIn from "./pages/SignIn.js";
 import SignUp from "./pages/SignUp.js";
 import Todos from "./pages/Todos.js";
@@ -20,18 +23,16 @@ function App() {
           <Switch>
             {/* <Route exact path="/" component={SignUp} /> */}
             <Route exact path="/" component={SignIn} />
-            <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/signup" component={SignUp} />
-            {localStorage.token ? (
-              <>
-                <Route exact path="/todos" component={Todos} />
-                <Route exact path="/todo/:id" component={Todo} />
-                <Route path="/404" component={NotFound} />
-                <Redirect from="*" to="/404" />
-              </>
-            ) : (
-              <Redirect from="*" to="/" />
-            )}
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/404" component={NotFound} />
+            <PrivateRoute path="/todos">
+              <Todos />
+            </PrivateRoute>
+            <PrivateRoute path="/todo/:id">
+              <Todo />
+            </PrivateRoute>
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>
