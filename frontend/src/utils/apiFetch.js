@@ -13,7 +13,10 @@ const apiFetch = (path, options) => {
     fetchOptions.body = JSON.stringify(fetchOptions.body);
   }
 
-  return fetch(`${BASE_URL}/${path}`, fetchOptions).then((res) => res.json());
+  return fetch(`${BASE_URL}/${path}`, fetchOptions)
+  .then((res) => res.json())
+  .catch((error) =>{
+    console.log("apiFetch ERROR!!!", error)})
 };
 
 export default apiFetch;

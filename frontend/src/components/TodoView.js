@@ -30,7 +30,7 @@ const TodoView = (props) => {
     };
     return apiFetch(`todo/${_id}/edit`, options)
       .catch((error) => console.log("ERROR!!!", error))
-      .then((json) => console.log("update", json))
+      // .then((json) => console.log("update", json))
       .then(() => setRedirect(true))
   };
 

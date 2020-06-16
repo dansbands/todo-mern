@@ -1,0 +1,3 @@
+{
+  "myprivatekey": "process.env.JWT_KEY"
+}

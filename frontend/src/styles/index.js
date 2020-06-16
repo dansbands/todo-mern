@@ -151,9 +151,14 @@ export const SignInForm = styled.form`
     border: 1px solid lightgrey;
     margin: 10px 0 40px;
     background: white;
+    cursor: pointer;
   }
 `;
 
 export const TextIcon = styled(TextBoxOutlineIcon)`
   color: lightgrey;
+`;
+
+export const ErrorMessage = styled.p`
+  color: red;
 `;
