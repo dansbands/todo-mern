@@ -142,6 +142,7 @@ export const SignInForm = styled.form`
     border: 1px solid lightgrey;
     margin: 0;
     margin: 10px 0 20px;
+    padding-left: 10px;
   }
   button {
     width: 30%;

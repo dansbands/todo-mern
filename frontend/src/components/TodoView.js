@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import apiFetch from "../utils/apiFetch";
 import { Redirect } from 'react-router-dom'
+import { SignInForm } from "../styles";
+import apiFetch from "../utils/apiFetch";
+
 // import PropTypes from "prop-types";
 
 const TodoView = (props) => {
@@ -33,7 +35,7 @@ const TodoView = (props) => {
   };
 
   return (
-    <form onSubmit={editTodo}>
+    <SignInForm onSubmit={editTodo}>
       <label htmlFor="title">Title:</label><br/>
       <input
         type="text"
@@ -51,7 +53,7 @@ const TodoView = (props) => {
       /><br/>
       <button type="submit">Submit</button>
       {redirect && <Redirect to="/todos" />}
-    </form>
+    </SignInForm>
   );
 };
 
