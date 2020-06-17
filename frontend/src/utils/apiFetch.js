@@ -8,6 +8,8 @@ const apiFetch = (path, options) => {
     },
   };
 
+  if (localStorage.token) fetchOptions.headers['authorization'] = localStorage.token;
+
   if (fetchOptions.body && fetchOptions.body instanceof Object) {
     fetchOptions.headers["Content-Type"] = "application/json";
     fetchOptions.body = JSON.stringify(fetchOptions.body);

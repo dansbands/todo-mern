@@ -8,7 +8,6 @@ const auth = require("./middleware/auth");
 const app = express();
 
 require("dotenv").config({ path: "variables.env" });
-// const db = require('db')
 
 const { ObjectId } = require("mongodb");
 
@@ -36,7 +35,8 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
       res.send("Hello World!!!");
     });
 
-    app.get("/todos", (req, res) => {
+    app.get("/todos", (req, res, next) => {
+      // auth(req, res, next)
       const cursor = db
         .collection("todos")
         .find()
@@ -53,7 +53,6 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
       const cursor = db
         .collection("todos")
         .findOne({ _id: ObjectId(id) })
-        // .toArray()
         .then((results) => {
           console.log({ results });
           res.send(results);
@@ -124,16 +123,26 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
 
     // Users Routes
 
-    app.get("/user/:id", (req, res) => {
-      console.log("GET ONE!!!", req.params.id);
-      const id = req.params.id;
-      const cursor = db
-        .collection("users")
-        .findOne({ _id: ObjectId(id) })
-        .then((results) => {
-          console.log({ results });
-          res.send(results);
-        });
+    app.get("/user", async (req, res, next) => {
+      const token = req.headers["authorization"]
+      if (!token) return res.status(401).send("Access denied. No token provided")
+      const decoded = await jwt.verify(token, config.get('myprivatekey'))
+      // console.log({decoded});
+      // console.log("req", req.user);
+      usersCollection
+        .findOne({ _id: ObjectId(decoded._id)})
+        .catch(error => console.log('User Error', error))
+        .then((user) => {
+          console.log("user", user);
+          res.status(200)
+          .send({
+                _id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+              })
+        })
+        .catch('Send Error!!!')
     });
 
     app.post("/signup", async (req, res, next) => {
@@ -163,8 +172,9 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
 
     app.post("/signin", async (req, res) => {
       let user = await usersCollection.findOne({ email: req.body.email });
-      let pwMatch = false
-      if (user) pwMatch = await bcrypt.compare(req.body.password, user.password);
+      let pwMatch = false;
+      if (user)
+        pwMatch = await bcrypt.compare(req.body.password, user.password);
       if (!user) {
         return res.status(400).send({ error: "User does not exist" });
       } else if (user && pwMatch) {
@@ -182,18 +192,7 @@ MongoClient.connect(process.env.DATABASE, { useUnifiedTopology: true })
           .status(401)
           .send({ error: "Invalid username and password combination" });
       }
-      // const email = req.body.email;
-      // const password = req.body.password;
-      // const cursor = await db
-      //   .collection("users")
-      //   .findOne({ email })
-      //   .catch((error) => res.send("ERROR!!!", error))
-      //   .then((results) => {
-      //     console.log({ results });
-      //     res.send(results);
-      //   });
     });
-
     // End Users Routes
   })
 
