@@ -16,6 +16,8 @@ import Todo from "./pages/Todo.js";
 import NotFound from "./pages/NotFound.js";
 
 function App() {
+  console.log('in the app');
+  
   return (
     <HelmetProvider>
       <Router>
